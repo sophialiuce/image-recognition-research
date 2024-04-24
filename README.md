@@ -1,8 +1,10 @@
 # image-recognition-research
 **1. Introduction**
+
 The task of this project is to classify images into 10 product types and 7 brands.
 
 **2. Data Preprocessing**
+
 In the file "data_preprocessing.py", I created a Python class to do the following data preprocessing tasks:
 a) Read images
 * Read images as a 3-dimensional array using “imread” method in module “cv2”.

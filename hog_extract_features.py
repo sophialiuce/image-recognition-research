@@ -31,7 +31,7 @@ def rgb2gray(im):
     return gray
 
 def extractFeatures():
-    dirpath = "./InterviewExam/Images"
+    dirpath = "./data/images"
     cnt = 0
     for filename in os.listdir(dirpath):
         print("start extracting features: " + filename)
@@ -50,7 +50,7 @@ def extractFeatures():
             cnt += 1
             
 def saveNpy():
-    np.save("./hog_features.npy", x_matrix)
+    np.save(".hog_features.npy", x_matrix)
             
 if __name__ == '__main__':  
     t0 = time.time()  

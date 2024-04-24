@@ -13,8 +13,8 @@ import numpy as np
 from sklearn.model_selection import train_test_split
   
 if __name__ == "__main__":  
-    model_path = './models/svm_product.model'  
-    x_features = np.load('hog_features.npy')
+    model_path = './models/svm_product/svm_product.model'  
+    x_features = np.load('.hog_features.npy')
     y_product = np.load('train_data_y_product_224.npy')
     
     X, test_X, Y, test_Y = train_test_split(x_features, y_product, 

@@ -8,3 +8,11 @@
 
 # ignore .npy files
 *.npy
+
+# ignore .pyc files
+*.pyc
+
+# ignore model files
+*.ckpt*
+checkpoint
+*.model

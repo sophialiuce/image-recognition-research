@@ -170,6 +170,6 @@ with tf.Session() as sess:
     # save model
     string_time = datetime.datetime.now().strftime("%I%M%p_%B_%d_%Y")
 
-    str_temp = 'step_100_' + string_time + '.npy'
+    str_temp = './models/cnn_product/step_100_' + string_time + '.npy'
     save_dict = {var.name: var.eval(sess) for var in tf.global_variables()}
     np.save(str_temp, save_dict)

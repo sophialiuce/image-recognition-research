@@ -20,7 +20,7 @@ class DataPreprocess:
     def __init__(self, size = 2184, cnt = 0, IMG_SIZE = 128):
         self.size = size
         self.IMG_SIZE = IMG_SIZE
-        self.x_matrix = np.empty((size, 224, 224, 3))
+        self.x_matrix = np.empty((size, 128, 128, 3))
         self.y_brand = np.empty(size)
         self.y_product = np.empty(size)
         self.y_productBrand = np.empty(size)
@@ -90,7 +90,7 @@ class DataPreprocess:
             if filename != '.DS_Store':
                 image = Image.open(dirpath + '/' +filename)
                 image = image.resize((224,224),Image.BILINEAR)
-                image = image.convert("L") # 灰度
+                image = image.convert("L") # gray scale
                 img_nparray = np.asarray(image,dtype='float32')
                 cv2.imwrite(output_dir+'/'+filename, img_nparray)
             
@@ -114,7 +114,7 @@ class DataPreprocess:
             print("start vectorizing: " + filename)
             if filename != '.DS_Store':
                 image = cv2.imread(dirpath + '/' +filename)
-                resized_image = cv2.resize(image, (224, 224), interpolation=cv2.INTER_LINEAR)
+                resized_image = cv2.resize(image, (128, 128), interpolation=cv2.INTER_LINEAR)
                 self.x_matrix[cnt] = resized_image
                 self.y_brand[cnt] = float(filename[0])
                 self.y_product[cnt] = float(filename[2])

@@ -14,7 +14,7 @@ from sklearn.model_selection import train_test_split
 IMG_SIZE = 128
 
 x_matrix = np.load('train_data_x.npy')
-y_brand = np.load('train_data_y_brand_one_hot.npy')
+y_brand = np.load('train_data_y_brand_one_hot_224.npy')
 #y_product = np.load('test_data_224_y_product_one_hot.npy')
 #y_productBrand = np.load('test_data_224_y_productBrand_one_hot.npy')
 

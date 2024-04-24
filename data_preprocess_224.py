@@ -51,14 +51,6 @@ def saveNpy():
     np.save("./train_data_y_productBrand_224.npy",y_productBrand)
         
 if __name__ == '__main__':
-    #augmentationImg()
-    #relightImg()
-    #grayscaleImg()
     resizeImg()
     vectorizeImg()
-    #df = readCSV()
-    #txt = readTXT()
-    #storeLabels()
-    #storeDictionary()
-    #storeX()
     saveNpy()

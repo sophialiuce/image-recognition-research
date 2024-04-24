@@ -1,0 +1,10 @@
+# ignore ALL image files
+*.png
+*.jpg
+
+# ignore .DS_Store
+.DS_Store
+./data/.DS_Store
+
+# ignore .npy files
+*.npy

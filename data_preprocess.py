@@ -22,6 +22,7 @@ class DataPreprocess:
         self.IMG_SIZE = IMG_SIZE
         self.x_matrix = np.empty((size, 224, 224, 3))
         self.y_brand = np.empty(size)
+        self.y_product = np.empty(size)
         self.y_productBrand = np.empty(size)
         self.cnt = cnt
         self.dictionary = dict()
@@ -107,13 +108,14 @@ class DataPreprocess:
                 cv2.imwrite(output_dir+'/'+filename, img_nparray)
                 
     def vectorizeImg(self):
-        dirpath = self.data_folder + "Images_resized"
-        global  cnt,x_train,y_label
+        dirpath = self.data_folder + "images_resized"
+        cnt = self.cnt
         for filename in os.listdir(dirpath):
             print("start vectorizing: " + filename)
             if filename != '.DS_Store':
                 image = cv2.imread(dirpath + '/' +filename)
-                self.x_matrix[cnt] = image
+                resized_image = cv2.resize(image, (224, 224), interpolation=cv2.INTER_LINEAR)
+                self.x_matrix[cnt] = resized_image
                 self.y_brand[cnt] = float(filename[0])
                 self.y_product[cnt] = float(filename[2])
                 self.y_productBrand[cnt] = float(filename[0])*10 + float(filename[2])
@@ -161,23 +163,25 @@ class DataPreprocess:
     #         pickle.dump(self.y_product,f)
     #         pickle.dump(self.y_productBrand,f)
         
-    # def saveNpy(self):
-    #     np.save("./train_data_x.npy",self.x_matrix)
-    #     print("saved x_matrix")
-    #     np.save("./train_data_y_brand.npy",self.y_brand)
-    #     np.save("./train_data_y_product.npy",self.y_product)
-    #     np.save("./train_data_y_productBrand.npy",self.y_productBrand)
+    def saveNpy(self):
+        np.save("./train_data_x.npy",self.x_matrix)
+        print("saved x_matrix")
+        np.save("./train_data_y_brand.npy",self.y_brand)
+        np.save("./train_data_y_product.npy",self.y_product)
+        np.save("./train_data_y_productBrand.npy",self.y_productBrand)
         
 if __name__ == '__main__':
     d = DataPreprocess()
-    d.augmentationImg()
-    d.relightImg()
-    d.grayscaleImg()
+    # d.augmentationImg()
+    # d.relightImg()
+    # d.grayscaleImg()
     d.resizeImg()
     d.vectorizeImg()
+
     #df = d.readCSV()
     #txt = d.readTXT()
     #d.storeLabels()
     #d.storeDictionary()
     #d.storeX()
-    #d.saveNpy()
+
+    d.saveNpy()

@@ -15,7 +15,7 @@ from keras.preprocessing.image import ImageDataGenerator, img_to_array, load_img
 import pandas as pd
 import pickle
 
-class Question1:
+class DataPreprocess:
     
     def __init__(self, size = 2184, cnt = 0, IMG_SIZE = 128):
         self.size = size
@@ -34,6 +34,7 @@ class Question1:
                             zoom_range=0.2,
                             horizontal_flip=True,
                             fill_mode='nearest')
+        self.data_folder = './data/'
         
     def relight(self, img, light=1, bias=0):
         w = img.shape[1]
@@ -51,8 +52,8 @@ class Question1:
         return img
     
     def relightImg(self):
-        dirpath = "./InterviewExam/Images"
-        output_dir = "./InterviewExam/inputImages"
+        dirpath = self.data_folder + "images"
+        output_dir = self.data_folder + "input_images"
         for filename in os.listdir(dirpath):
             print('Start Relight: '+dirpath + '/' +filename)
             image = cv2.imread(dirpath + '/' +filename)
@@ -63,8 +64,8 @@ class Question1:
             cv2.imwrite(output_dir+'/'+filename[0:7]+'_relight.jpg', image)
     
     def augmentationImg(self): # augmentation with keras
-        dirpath = "./InterviewExam/Images"
-        output_dir = "./InterviewExam/inputImages"
+        dirpath = self.data_folder + "images"
+        output_dir = self.data_folder + "input_images"
         for filename in os.listdir(dirpath):
             print('Start Augmentation: '+ filename)
             img = load_img(dirpath + '/' +filename)
@@ -81,8 +82,8 @@ class Question1:
                     break  # otherwise the generator would loop indefinitely
                     
     def grayscaleImg(self):
-        dirpath = "./InterviewExam/inputImages"
-        output_dir = "./InterviewExam/inputImages_grayScale"
+        dirpath = self.data_folder + "input_images"
+        output_dir = self.data_folder + "input_images_gray"
         for filename in os.listdir(dirpath):
             print("start grayscale: " + filename)
             if filename != '.DS_Store':
@@ -93,8 +94,8 @@ class Question1:
                 cv2.imwrite(output_dir+'/'+filename, img_nparray)
             
     def resizeImg(self):
-        dirpath = "./InterviewExam/Images"
-        output_dir = "./InterviewExam/Images_resized"
+        dirpath = self.data_folder + "images"
+        output_dir = self.data_folder + "images_resized"
         for filename in os.listdir(dirpath):
             print("start resizing: " + filename)
             if filename != '.DS_Store':
@@ -106,7 +107,7 @@ class Question1:
                 cv2.imwrite(output_dir+'/'+filename, img_nparray)
                 
     def vectorizeImg(self):
-        dirpath = "./InterviewExam/Images_resized"
+        dirpath = self.data_folder + "Images_resized"
         global  cnt,x_train,y_label
         for filename in os.listdir(dirpath):
             print("start vectorizing: " + filename)
@@ -118,13 +119,13 @@ class Question1:
                 self.y_productBrand[cnt] = float(filename[0])*10 + float(filename[2])
             cnt += 1
             
-    def readCSV():
-        path = "./InterviewExam/Label.csv"
+    def readCSV(self):
+        path = self.data_folder + "Label.csv"
         df = pd.read_csv(path)
         return df
 
     def readTXT(self):
-        path = "./InterviewExam/Product-Brand.txt"
+        path = self.data_folder + "Product-Brand.txt"
         file_object = open(path,'r')
         try: 
             for line in file_object:
@@ -139,8 +140,8 @@ class Question1:
         return self.dictionary
     
     def storeX(self):
-        #pickle_dump(x_matrix, './InterviewExam/x_matrix.pkl')
-        file_path = './InterviewExam/x_matrix_4.pkl'
+        #pickle_dump(x_matrix, self.data_folder + "x_matrix_4.pkl")
+        file_path = self.data_folder + "x_matrix_4.pkl"
         n_bytes = 2**31
         max_bytes = 2**31 - 1
         data = bytearray(self.x_matrix)
@@ -151,11 +152,11 @@ class Question1:
                 f_out.write(bytes_out[idx:idx+max_bytes])
 
     def storeDictionary(self):
-        with open('./InterviewExam/dictionary.pkl', 'wb') as f:
+        with open(self.data_folder + 'dictionary.pkl', 'wb') as f:
             pickle.dump(self.dictionary,f)
         
     def storeLabels(self):
-        with open('./InterviewExam/labels.pkl', 'wb') as f:
+        with open(self.data_folder + 'labels.pkl', 'wb') as f:
             pickle.dump(self.y_brand,f)
             pickle.dump(self.y_product,f)
             pickle.dump(self.y_productBrand,f)
@@ -168,15 +169,15 @@ class Question1:
         np.save("./train_data_y_productBrand.npy",self.y_productBrand)
         
 if __name__ == '__main__':
-    q = Question1()
-    #q.augmentationImg()
-    #q.relightImg()
-    #q.grayscaleImg()
-    #q.resizeImg()
-    #q.vectorizeImg()
-    #df = q.readCSV()
-    #txt = q.readTXT()
-    #q.storeLabels()
-    #q.storeDictionary()
-    #q.storeX()
-    #q.saveNpy()
+    d = DataPreprocess()
+    #d.augmentationImg()
+    #d.relightImg()
+    #d.grayscaleImg()
+    #d.resizeImg()
+    #d.vectorizeImg()
+    #df = d.readCSV()
+    #txt = d.readTXT()
+    #d.storeLabels()
+    #d.storeDictionary()
+    #d.storeX()
+    #d.saveNpy()

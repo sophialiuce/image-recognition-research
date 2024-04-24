@@ -16,3 +16,6 @@
 *.ckpt*
 checkpoint
 *.model
+
+# ignore the data exploration file
+*.ipynb

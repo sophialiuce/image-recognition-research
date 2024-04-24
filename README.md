@@ -4,7 +4,11 @@
 
 The objective of this project is to categorize images into 10 product types and 7 brands.
 
-## 2. Data Preprocessing
+## 2. Data Exploration
+
+The data exploration can be found in the Jupyter Notebook: data_exploration.ipynb.
+
+## 3. Data Preprocessing
 
 ### a) Reading Images
 
@@ -30,7 +34,7 @@ In the file `data_preprocessing.py`, a Python class is created to perform the fo
 
 ### e) Train-Test Separation
 
-## 3. Machine Learning Models
+## 4. Machine Learning Models
 
 - Self-trained 5-layer CNN model (baseline).
 - Combination of HoG (Histogram of Oriented Gradient) and SVM.
@@ -38,7 +42,7 @@ In the file `data_preprocessing.py`, a Python class is created to perform the fo
   - Implemented with the final branch (AdamOptimizer with learning rate = 0.0001 to minimize softmax cross-entropy).
   - [Google's Inception V1 model](http://alpha.tfhub.dev/google/imagenet/inception_v1/classification/1) is utilized.
 
-## 4. To run the code
+## 5. To run the code
 
 - add the images to the /data/images folder, with filenames like brandNumber_productNumber_imageNumber.png, and update the "Label.csv" file and "Product_Brand.txt" files if needed.
 - download inception_v1.ckpt from http://download.tensorflow.org/models/inception_v1_2016_08_28.tar.gz, and put the unzipped .ckpt file in the root dir.

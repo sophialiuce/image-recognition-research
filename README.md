@@ -40,7 +40,7 @@ In the file `data_preprocessing.py`, a Python class is created to perform the fo
 
 ## 4. To run the code
 
-- add the images to the /data/images folder, with filenames like brandNumber_productNumber_imageNumber.png.
+- add the images to the /data/images folder, with filenames like brandNumber_productNumber_imageNumber.png, and update the "Label.csv" file and "Product_Brand.txt" files if needed.
 - download inception_v1.ckpt from http://download.tensorflow.org/models/inception_v1_2016_08_28.tar.gz, and put the unzipped .ckpt file in the root dir.
 - preprocess the data by running `python data_preprocess.py` and `python data_preprocess_225.py`.
 - train and test the baseline CNN model by `python cnn_5layer.py`.

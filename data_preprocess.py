@@ -119,62 +119,62 @@ class DataPreprocess:
                 self.y_productBrand[cnt] = float(filename[0])*10 + float(filename[2])
             cnt += 1
             
-    def readCSV(self):
-        path = self.data_folder + "Label.csv"
-        df = pd.read_csv(path)
-        return df
+    # def readCSV(self):
+    #     path = self.data_folder + "Label.csv"
+    #     df = pd.read_csv(path)
+    #     return df
 
-    def readTXT(self):
-        path = self.data_folder + "Product-Brand.txt"
-        file_object = open(path,'r')
-        try: 
-            for line in file_object:
-                if line == '\n':
-                    continue;
-                else:
-                    l = line.split(',')
-                    self.dictionary.update({l[0]:int(l[1])})
+    # def readTXT(self):
+    #     path = self.data_folder + "Product-Brand.txt"
+    #     file_object = open(path,'r')
+    #     try: 
+    #         for line in file_object:
+    #             if line == '\n':
+    #                 continue;
+    #             else:
+    #                 l = line.split(',')
+    #                 self.dictionary.update({l[0]:int(l[1])})
                 
-        finally:
-            file_object.close()
-        return self.dictionary
+    #     finally:
+    #         file_object.close()
+    #     return self.dictionary
     
-    def storeX(self):
-        #pickle_dump(x_matrix, self.data_folder + "x_matrix_4.pkl")
-        file_path = self.data_folder + "x_matrix_4.pkl"
-        n_bytes = 2**31
-        max_bytes = 2**31 - 1
-        data = bytearray(self.x_matrix)
+    # def storeX(self):
+    #     #pickle_dump(x_matrix, self.data_folder + "x_matrix_4.pkl")
+    #     file_path = self.data_folder + "x_matrix_4.pkl"
+    #     n_bytes = 2**31
+    #     max_bytes = 2**31 - 1
+    #     data = bytearray(self.x_matrix)
     
-        bytes_out = pickle.dumps(data)
-        with open(file_path, 'wb') as f_out:
-            for idx in range(0, n_bytes, max_bytes):
-                f_out.write(bytes_out[idx:idx+max_bytes])
+    #     bytes_out = pickle.dumps(data)
+    #     with open(file_path, 'wb') as f_out:
+    #         for idx in range(0, n_bytes, max_bytes):
+    #             f_out.write(bytes_out[idx:idx+max_bytes])
 
-    def storeDictionary(self):
-        with open(self.data_folder + 'dictionary.pkl', 'wb') as f:
-            pickle.dump(self.dictionary,f)
+    # def storeDictionary(self):
+    #     with open(self.data_folder + 'dictionary.pkl', 'wb') as f:
+    #         pickle.dump(self.dictionary,f)
         
-    def storeLabels(self):
-        with open(self.data_folder + 'labels.pkl', 'wb') as f:
-            pickle.dump(self.y_brand,f)
-            pickle.dump(self.y_product,f)
-            pickle.dump(self.y_productBrand,f)
+    # def storeLabels(self):
+    #     with open(self.data_folder + 'labels.pkl', 'wb') as f:
+    #         pickle.dump(self.y_brand,f)
+    #         pickle.dump(self.y_product,f)
+    #         pickle.dump(self.y_productBrand,f)
         
-    def saveNpy(self):
-        np.save("./train_data_x.npy",self.x_matrix)
-        print("saved x_matrix")
-        np.save("./train_data_y_brand.npy",self.y_brand)
-        np.save("./train_data_y_product.npy",self.y_product)
-        np.save("./train_data_y_productBrand.npy",self.y_productBrand)
+    # def saveNpy(self):
+    #     np.save("./train_data_x.npy",self.x_matrix)
+    #     print("saved x_matrix")
+    #     np.save("./train_data_y_brand.npy",self.y_brand)
+    #     np.save("./train_data_y_product.npy",self.y_product)
+    #     np.save("./train_data_y_productBrand.npy",self.y_productBrand)
         
 if __name__ == '__main__':
     d = DataPreprocess()
-    #d.augmentationImg()
-    #d.relightImg()
-    #d.grayscaleImg()
-    #d.resizeImg()
-    #d.vectorizeImg()
+    d.augmentationImg()
+    d.relightImg()
+    d.grayscaleImg()
+    d.resizeImg()
+    d.vectorizeImg()
     #df = d.readCSV()
     #txt = d.readTXT()
     #d.storeLabels()
